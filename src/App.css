@@ -71,3 +71,10 @@ button {
   border-radius: 8px;
   cursor: pointer;
 }
+
+button:active {
+  background: #d67a96;
+}
+h1 {
+  color: #f1356d;
+}
