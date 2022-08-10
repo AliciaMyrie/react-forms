@@ -55,6 +55,11 @@ function App() {
       console.log(results);
       const data = await results.json();
       console.log(data);
+
+      setFormSubmitted(true);
+      setErrorMessage("");
+      setValidForm(true);
+      alert("Wow! Submitted");
     } catch (error) {
       console.error(error);
       setErrorMessage(

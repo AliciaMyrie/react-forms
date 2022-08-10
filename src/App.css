@@ -49,7 +49,7 @@ label {
 }
 h3 {
   font-size: 20px;
-  color: #f1356d;
+  color: #2f3e46;
   margin-bottom: 30px;
 }
 input,
@@ -64,7 +64,7 @@ select {
 }
 
 button {
-  background: #f1356d;
+  background: #284b63;
   color: #fff;
   border: 0;
   padding: 8px;
@@ -73,8 +73,12 @@ button {
 }
 
 button:active {
-  background: #d67a96;
+  background: #353535;
 }
 h1 {
-  color: #f1356d;
+  color: #284b63;
+}
+
+body {
+  background-color: #d9d9d9;
 }
