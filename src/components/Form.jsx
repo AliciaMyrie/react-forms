@@ -1,12 +1,19 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function Form() {
+export default function Form({
+  ronsProps,
+  aliciasProps,
+  handleClose,
+  setStateFromChild,
+}) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [validForm, setValidForm] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const [form, setForm] = useState({});
+
+  console.log("props here", ronsProps, aliciasProps);
 
   useEffect(() => {
     //fetch
@@ -17,25 +24,19 @@ export default function Form() {
     }
   }, [form]);
 
-  // console.log(title);
-
   async function formSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); // stops page from refreshing
 
     if (!validForm) {
-      setErrorMessage("Not a vaild form");
+      setErrorMessage("Not a valid form");
       return;
     }
 
     try {
-      // console.log("form submitted");
-      //   setErrorMessage("");
-
-      // really submit it to an API
       const results = await fetch("https://sql.bocacode.com/comments", {
         method: "POST",
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(form),
       });
@@ -47,11 +48,14 @@ export default function Form() {
       setErrorMessage("");
       setValidForm(true);
       alert("Wow! Submitted");
+      handleClose();
+      setStateFromChild(form);
     } catch (error) {
       console.error(error);
       setErrorMessage(
         "there was an error submitting your comment" + error.toString()
       );
+      // console.log(title);
     }
   }
 
@@ -59,16 +63,18 @@ export default function Form() {
 
   const updateForm = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
-    // setForm(oldForm => {..oldForm,})
   };
+
+  // console.log("form submitted");
+  //   setErrorMessage("");
 
   return (
     <div className="App">
+      <h3>
+        {ronsProps} {aliciasProps[0]}
+      </h3>
       <form onSubmit={formSubmit}>
         <h1>Comments</h1>
-
-        {/* here goes the title */}
-
         <label>Title</label>
         <input
           type="text"
@@ -78,33 +84,33 @@ export default function Form() {
           onChange={updateForm}
         />
         <h3>{form.title}</h3>
-
-        {/* // setForm({ [e.target.name]: e.target.value });
-        this is the description */}
         <label>Description</label>
         <textarea
           value={form.description}
           name="description"
+          // required
           onChange={updateForm}
         />
         <h3>{form.description}</h3>
-        {/* THIS IS THE AUTHOR */}
         <label>Author</label>
         <select value={form.author} name="author" onChange={updateForm}>
           <option value="" selected>
             Choose One
           </option>
-          <option value="todd">Todd</option>
-          <option value="cisco">Cisco</option>
+          <option value="todd albert">Todd</option>
+          <option value="ludwigson">Cisco</option>
           <option value="other">Other</option>
         </select>
+
         <h3>{form.author}</h3>
-
+        <button onClick={() => setStateFromChild("hello father")}>
+          {" "}
+          send stuff back to parent
+        </button>
         {!formSubmitted && <button>Submit Form</button>}
-
         {errorMessage && (
           <h1>
-            there was an error:
+            There was an error:
             <br />
             {errorMessage}
           </h1>

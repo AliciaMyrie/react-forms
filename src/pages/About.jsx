@@ -1,5 +1,3 @@
-const About = () => {
-  return <h3>this is about page</h3>;
-};
+const About = () => <h3>this is about page</h3>;
 
 export default About;
